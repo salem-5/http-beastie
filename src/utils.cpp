@@ -1,4 +1,5 @@
 #include "utils.hpp"
+#include <fstream>
 
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -28,4 +29,12 @@ http::response<http::string_body> handle_request(const http::request<http::strin
 
   res.prepare_payload();
   return res;
+}
+
+std::string getFileContents(const std::string& path) {
+  std::ifstream file(path);
+  std::string fileContents;
+  std::string line;
+  while (std::getline(file, line))
+    fileContents += line + '\n';
 }
